@@ -17,7 +17,7 @@ class FocusFrenzy extends StatelessWidget {
         elevation: 0,
         title: const Text('Focus Frenzy'),
       ),
-      body: Column(
+      body: Stack(
         children: const [
           Padding(
             padding: EdgeInsets.all(20.0),
@@ -25,7 +25,7 @@ class FocusFrenzy extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: Color.fromRGBO(240, 114, 65, 1),
+      backgroundColor: const Color.fromRGBO(240, 114, 65, 1),
     );
   }
 }

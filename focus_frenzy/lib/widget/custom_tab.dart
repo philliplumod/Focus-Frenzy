@@ -5,6 +5,7 @@ class CustomTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 3,
       child: SizedBox(
@@ -14,28 +15,30 @@ class CustomTab extends StatelessWidget {
               color: Colors.white.withOpacity(.2),
               borderRadius: const BorderRadius.all(Radius.circular(10))),
           child: Column(
-            children: const [
-              SizedBox(
-                height: 50,
-                child: Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: TabBar(
-                    labelColor: Colors.white,
-                    indicatorColor: Colors.transparent,
-                    //change tab color if selected
-                    indicator: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    // unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(text: 'Pomorodo'),
-                      Tab(text: 'Short Break'),
-                      Tab(text: 'Long Break'),
-                    ],
-                  ),
+            children: [
+              Container(
+                width: size.width,
+                height: 30,
+                margin: const EdgeInsets.all(15.0),
+                child: TabBar(
+                  padding: EdgeInsets.zero,
+                  indicatorPadding: EdgeInsets.zero,
+                  labelPadding: EdgeInsets.zero,
+                  labelColor: Colors.white,
+                  indicatorColor: Colors.transparent,
+                  //change tab color if selected
+                  indicator: BoxDecoration(
+                      color: Colors.black.withOpacity(.4),
+                      borderRadius: const BorderRadius.all(Radius.circular(5))),
+                  // unselectedLabelColor: Colors.grey,
+                  tabs: const [
+                    Tab(text: 'Pomorodo'),
+                    Tab(text: 'Short Break'),
+                    Tab(text: 'Long Break'),
+                  ],
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: TabBarView(
                   children: [
                     Center(child: Text('25:00')),

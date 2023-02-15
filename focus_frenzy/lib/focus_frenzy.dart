@@ -21,8 +21,11 @@ class _FocusFrenzyState extends State<FocusFrenzy> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
         elevation: 0,
-        title: const Text('Focus Frenzy'),
+        title: const Text(
+          'Focus Frenzy',
+        ),
       ),
       body: Column(
         children: const [
@@ -32,7 +35,7 @@ class _FocusFrenzyState extends State<FocusFrenzy> {
           ),
         ],
       ),
-      backgroundColor: const Color.fromRGBO(240, 114, 65, 1),
+      backgroundColor: const Color.fromRGBO(241, 196, 15, 1),
     );
   }
 }

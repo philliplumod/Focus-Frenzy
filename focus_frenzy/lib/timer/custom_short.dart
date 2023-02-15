@@ -16,14 +16,13 @@ class _CountShortPomodoroState extends State<CountShortPomodoro> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Countdown(
           controller: _controller,
           seconds: 5 * 60,
           build: (BuildContext context, double time) => Text(
             formatDuration(Duration(seconds: time.toInt())),
-            style: const TextStyle(fontSize: 40, color: Colors.white),
+            style: const TextStyle(fontSize: 40, color: Colors.black),
           ),
           interval: const Duration(milliseconds: 100),
           onFinished: () {
@@ -40,9 +39,12 @@ class _CountShortPomodoroState extends State<CountShortPomodoro> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(100, 0),
-                  backgroundColor: const Color.fromARGB(96, 24, 72, 1),
+                  backgroundColor: Colors.black,
+                  foregroundColor: const Color.fromRGBO(241, 196, 15, 1),
                   elevation: 0),
-              child: Text(_isRunning ? 'Stop' : 'Start'),
+              child: Text(
+                _isRunning ? 'Stop' : 'Start',
+              ),
               onPressed: () {
                 setState(() {
                   if (_isRunning) {
@@ -58,7 +60,8 @@ class _CountShortPomodoroState extends State<CountShortPomodoro> {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(100, 0),
-                  backgroundColor: const Color.fromARGB(96, 24, 72, 1),
+                  backgroundColor: Colors.black,
+                  foregroundColor: const Color.fromRGBO(241, 196, 15, 1),
                   elevation: 0),
               child: const Text('Reset'),
               onPressed: () {
@@ -79,3 +82,6 @@ class _CountShortPomodoroState extends State<CountShortPomodoro> {
     return '${duration.inMinutes.toString().padLeft(2, '0')}:${(duration.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 }
+
+//buzzer
+

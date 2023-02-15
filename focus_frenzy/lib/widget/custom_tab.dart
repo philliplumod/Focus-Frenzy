@@ -16,7 +16,8 @@ class CustomTab extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
               color: Colors.white.withOpacity(.2),
-              borderRadius: const BorderRadius.all(Radius.circular(10))),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              border: Border.all(width: 2)),
           child: Column(
             children: [
               Container(
@@ -27,12 +28,13 @@ class CustomTab extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   indicatorPadding: EdgeInsets.zero,
                   labelPadding: EdgeInsets.zero,
-                  labelColor: Colors.white,
+                  labelColor: Colors.black,
                   indicatorColor: Colors.transparent,
                   //change tab color if selected
                   indicator: BoxDecoration(
                       color: Colors.black.withOpacity(.2),
-                      borderRadius: const BorderRadius.all(Radius.circular(5))),
+                      borderRadius: const BorderRadius.all(Radius.circular(5)),
+                      border: Border.all(width: 2, color: Colors.black)),
                   // unselectedLabelColor: Colors.grey,
                   tabs: const [
                     Tab(text: 'Pomorodo'),
@@ -45,7 +47,6 @@ class CustomTab extends StatelessWidget {
                 child: TabBarView(
                   children: [
                     Center(child: CountDownPomodoro()),
-                    // Center(child: Text('5:00')),
                     Center(child: CountShortPomodoro()),
                     Center(child: CountLongPomodoro())
                   ],

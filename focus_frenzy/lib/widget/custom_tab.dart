@@ -15,7 +15,7 @@ class CustomTab extends StatelessWidget {
         height: 200,
         child: DecoratedBox(
           decoration: BoxDecoration(
-              color: Colors.white.withOpacity(.2),
+              color: Colors.white.withOpacity(.1),
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               border: Border.all(width: 2)),
           child: Column(
@@ -37,7 +37,7 @@ class CustomTab extends StatelessWidget {
                       border: Border.all(width: 2, color: Colors.black)),
                   // unselectedLabelColor: Colors.grey,
                   tabs: const [
-                    Tab(text: 'Pomorodo'),
+                    Tab(text: 'Pomodoro'),
                     Tab(text: 'Short Break'),
                     Tab(text: 'Long Break'),
                   ],

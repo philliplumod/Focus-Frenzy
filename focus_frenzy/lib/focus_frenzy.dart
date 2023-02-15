@@ -20,20 +20,24 @@ class _FocusFrenzyState extends State<FocusFrenzy> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromRGBO(241, 196, 15, 1),
         foregroundColor: Colors.black,
-        elevation: 0,
+        elevation: 1,
+        shadowColor: const Color.fromARGB(255, 206, 167, 1),
         title: const Text(
           'Focus Frenzy',
         ),
       ),
-      body: Column(
-        children: const [
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: CustomTab(),
-          ),
-        ],
+      body: SizedBox(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: CustomTab(),
+            ),
+          ],
+        ),
       ),
       backgroundColor: const Color.fromRGBO(241, 196, 15, 1),
     );

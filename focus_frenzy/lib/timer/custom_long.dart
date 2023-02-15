@@ -1,7 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class CountLongPomodoro extends StatefulWidget {
   const CountLongPomodoro({super.key});
@@ -12,14 +12,20 @@ class CountLongPomodoro extends StatefulWidget {
 
 class _CountLongPomodoroState extends State<CountLongPomodoro> {
   final CountdownController _controller = CountdownController();
+  final AudioPlayer _audioPlayer = AudioPlayer();
+
   bool _isRunning = false;
 
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  //buzzer
-  Future<void> _loadSound() async {
-    await _audioPlayer.setReleaseMode(ReleaseMode.stop);
-    await _audioPlayer.setVolume(1.0);
-    await _audioPlayer.setSourceAsset('assets/sounds/buzzer.mp3');
+  @override
+  void initState() {
+    super.initState();
+    _audioPlayer.setSourceAsset('assets/ring_bell.mp3');
+  }
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,12 +40,53 @@ class _CountLongPomodoroState extends State<CountLongPomodoro> {
             style: const TextStyle(fontSize: 40, color: Colors.black),
           ),
           interval: const Duration(milliseconds: 100),
-          onFinished: () {
+          onFinished: () async {
             setState(() {
               _isRunning = false;
             });
-            _controller.restart();
-            _loadSound();
+            _controller.pause();
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  backgroundColor: Colors.black,
+                  title: const Text(
+                    'Time is up!',
+                    style: TextStyle(color: Color.fromRGBO(241, 196, 15, 1)),
+                  ),
+                  content: const Text(
+                    'Your timer has finished.',
+                    style: TextStyle(color: Color.fromRGBO(241, 196, 15, 1)),
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _controller.restart();
+                        _controller.pause();
+                      },
+                      child: const Text('OK',
+                          style: TextStyle(
+                              color: Color.fromRGBO(241, 196, 15, 1))),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            Navigator.of(context).pop();
+                            _controller.start();
+                            _controller.restart();
+                            _isRunning = true;
+                          });
+                        },
+                        child: const Text('Restart',
+                            style: TextStyle(
+                                color: Color.fromRGBO(241, 196, 15, 1))))
+                  ],
+                );
+              },
+            );
+            await _audioPlayer.play(UrlSource('assets/ring_bell.mp3'));
           },
         ),
         const SizedBox(height: 16.0),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:focus_frenzy/timer/custom_long.dart';
+import 'package:focus_frenzy/timer/custom_short.dart';
+
+import '../timer/custom_pomododo.dart';
 
 class CustomTab extends StatelessWidget {
   const CustomTab({super.key});
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -28,7 +31,7 @@ class CustomTab extends StatelessWidget {
                   indicatorColor: Colors.transparent,
                   //change tab color if selected
                   indicator: BoxDecoration(
-                      color: Colors.black.withOpacity(.4),
+                      color: Colors.black.withOpacity(.2),
                       borderRadius: const BorderRadius.all(Radius.circular(5))),
                   // unselectedLabelColor: Colors.grey,
                   tabs: const [
@@ -41,9 +44,10 @@ class CustomTab extends StatelessWidget {
               const Expanded(
                 child: TabBarView(
                   children: [
-                    Center(child: Text('25:00')),
-                    Center(child: Text('5:00')),
-                    Center(child: Text('10:00')),
+                    Center(child: CountDownPomodoro()),
+                    // Center(child: Text('5:00')),
+                    Center(child: CountShortPomodoro()),
+                    Center(child: CountLongPomodoro())
                   ],
                 ),
               ),

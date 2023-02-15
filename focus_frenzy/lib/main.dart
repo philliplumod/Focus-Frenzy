@@ -3,4 +3,5 @@ import 'package:focus_frenzy/focus_frenzy.dart';
 
 void main() => runApp(const MaterialApp(
       home: FocusFrenzy(),
+      debugShowCheckedModeBanner: false,
     ));

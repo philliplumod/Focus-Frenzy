@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 class CountDownPomodoro extends StatefulWidget {
   const CountDownPomodoro({super.key});
@@ -12,21 +11,8 @@ class CountDownPomodoro extends StatefulWidget {
 
 class _CountDownPomodoroState extends State<CountDownPomodoro> {
   final CountdownController _controller = CountdownController();
-  final AudioPlayer _audioPlayer = AudioPlayer();
 
   bool _isRunning = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _audioPlayer.setSourceAsset('assets/ring_bell.mp3');
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +72,6 @@ class _CountDownPomodoroState extends State<CountDownPomodoro> {
                 );
               },
             );
-            await _audioPlayer.play(UrlSource('assets/ring_bell.mp3'));
           },
         ),
         const SizedBox(height: 16.0),

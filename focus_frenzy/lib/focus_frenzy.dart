@@ -20,7 +20,7 @@ class _FocusFrenzyState extends State<FocusFrenzy> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(241, 196, 15, 1),
+        backgroundColor: const Color(0xfff6abb6).withOpacity(.9),
         foregroundColor: Colors.black,
         elevation: 1,
         shadowColor: const Color.fromARGB(255, 206, 167, 1),
@@ -39,7 +39,7 @@ class _FocusFrenzyState extends State<FocusFrenzy> {
           ],
         ),
       ),
-      backgroundColor: const Color.fromRGBO(241, 196, 15, 1),
+      backgroundColor: const Color(0xfff6abb6).withOpacity(.9),
     );
   }
 }

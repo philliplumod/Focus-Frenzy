@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
+import 'package:vibration/vibration.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class CountDownPomodoro extends StatefulWidget {
-  const CountDownPomodoro({super.key});
+  const CountDownPomodoro({Key? key}) : super(key: key);
 
   @override
   State<CountDownPomodoro> createState() => _CountDownPomodoroState();
 }
 
 class _CountDownPomodoroState extends State<CountDownPomodoro> {
-  final CountdownController _controller = CountdownController();
-
   bool _isRunning = false;
+  late bool isSuccess = false;
+  final CountdownController _controller = CountdownController();
+  final audioCache = AudioCache();
+
+  @override
+  void initState() {
+    super.initState();
+    audioCache.load('ring_bell.mp3');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,30 +29,30 @@ class _CountDownPomodoroState extends State<CountDownPomodoro> {
       children: [
         Countdown(
           controller: _controller,
-          seconds: 25 * 60,
+          seconds: 1 * 3,
           build: (BuildContext context, double time) => Text(
             formatDuration(Duration(seconds: time.toInt())),
             style: const TextStyle(fontSize: 40, color: Colors.black),
           ),
           interval: const Duration(milliseconds: 100),
           onFinished: () async {
+            isSuccess = true;
             setState(() {
               _isRunning = false;
             });
             _controller.pause();
+
             showDialog(
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  backgroundColor: Colors.black,
+                  backgroundColor: const Color(0xfff6abb6),
                   title: const Text(
                     'Time is up!',
-                    style: TextStyle(color: Color.fromRGBO(241, 196, 15, 1)),
                   ),
                   content: const Text(
                     'Your timer has finished.',
-                    style: TextStyle(color: Color.fromRGBO(241, 196, 15, 1)),
                   ),
                   actions: [
                     TextButton(
@@ -53,8 +62,7 @@ class _CountDownPomodoroState extends State<CountDownPomodoro> {
                         _controller.pause();
                       },
                       child: const Text('OK',
-                          style: TextStyle(
-                              color: Color.fromRGBO(241, 196, 15, 1))),
+                          style: TextStyle(color: Colors.black)),
                     ),
                     TextButton(
                         onPressed: () {
@@ -66,12 +74,16 @@ class _CountDownPomodoroState extends State<CountDownPomodoro> {
                           });
                         },
                         child: const Text('Restart',
-                            style: TextStyle(
-                                color: Color.fromRGBO(241, 196, 15, 1))))
+                            style: TextStyle(color: Colors.black)))
                   ],
                 );
               },
             );
+            if (isSuccess) {
+              await Vibration.hasVibrator();
+              await audioCache.play('ring_bell.mp3');
+              Vibration.vibrate();
+            }
           },
         ),
         const SizedBox(height: 16.0),
@@ -82,10 +94,11 @@ class _CountDownPomodoroState extends State<CountDownPomodoro> {
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(100, 0),
                   backgroundColor: Colors.black,
-                  foregroundColor: const Color.fromRGBO(241, 196, 15, 1),
+                  foregroundColor: const Color(0xfff6abb6),
                   elevation: 0),
               child: Text(
                 _isRunning ? 'Stop' : 'Start',
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               onPressed: () {
                 setState(() {
@@ -103,9 +116,12 @@ class _CountDownPomodoroState extends State<CountDownPomodoro> {
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(100, 0),
                   backgroundColor: Colors.black,
-                  foregroundColor: const Color.fromRGBO(241, 196, 15, 1),
+                  foregroundColor: const Color(0xfff6abb6),
                   elevation: 0),
-              child: const Text('Reset'),
+              child: const Text(
+                'Reset',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               onPressed: () {
                 setState(() {
                   _controller.restart();
